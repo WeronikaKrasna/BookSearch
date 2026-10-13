@@ -1,7 +1,8 @@
 
+import InfoInput from "@/components/InfoInput";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, ImageBackground, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BookImp from "../../assets/images/Book.png";
 
@@ -10,8 +11,8 @@ const loginScreen = () => {
     //useParams -> hook, ktorym przekazesz nazwe uzytkownik ado innego okna (dokladniej do main ekranu)
 
 
-    const [text, userName] = useState('');
-    const [pass, userPass] = useState('');
+    const [userName, setuserName] = useState('');
+    const [userpass, setuserPass] = useState('');
     const router = useRouter();
 
     const logowanie = () => {
@@ -24,6 +25,10 @@ const loginScreen = () => {
         router.push('/register')
     }
 
+    const SkipLogowania = () => {
+        router.replace('/(tabs)/PhotoScreen')
+    }
+
 
     return(
         <>
@@ -34,21 +39,15 @@ const loginScreen = () => {
             resizeMode="cover"
             style={styles.BackgroundImage}>
             
-            <TextInput
-           // value={text}
-            style={styles.TextPlace}
-            onChangeText={userName}
-            placeholder="Nazwa Uzytkownika"
-            placeholderTextColor="#888"
-            
+            <InfoInput
+            placeholder='Nazwa Uzytkownika'
+            onChangeText={setuserName}
+            secureTextEntry={false}
             />
-            <TextInput
-           // value={pass}
+            <InfoInput
+            placeholder='Haslo'
+            onChangeText={setuserPass}
             secureTextEntry={true}
-            style={styles.TextPlace}
-            placeholder="Haslo"
-            placeholderTextColor="#888"
-            onChangeText={userPass}
             
             />
 
@@ -61,6 +60,12 @@ const loginScreen = () => {
 
            <Button title='Zarejestruj sie'
            onPress={rejestracja}/>
+
+
+           <Button
+           title='Bez Logowania'
+           onPress={SkipLogowania}
+           />
 
             
             </View>
@@ -91,15 +96,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
 
-    },
-    TextPlace: {
-        backgroundColor: 'white',
-        borderColor: 'red',
-        height: '10%',
-        width: '90%',
-        padding: 10,
-        borderRadius: 10,
-        margin: '1%',
     }, 
     LoginButton: {
         marginTop: 40,

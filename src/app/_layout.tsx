@@ -20,6 +20,10 @@ export default function RootLayout() {
       name="register"
       options={{headerShown: true}}
       />
+      <Stack.Screen
+      name='PhotoScreen'
+      options={{headerShown:false}}/>
+      {}
     </Stack>
   );
 }
